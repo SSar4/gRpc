@@ -17,7 +17,7 @@ Acesse o diretório do projeto:
 
 1. Copy code cd projeto-grpc-node
 
-2. Instale as dependências do projeto: npm install
+2. Instale as dependências do projeto: npm ci
 
 ## Uso
 Executando o servidor
