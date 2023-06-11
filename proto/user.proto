@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package userpackage;
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message FindUserRequest {
+  int32 id = 1;
+}
+
+message UserResponse {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+service UserService {
+  rpc Create(CreateUserRequest) returns (UserResponse) {}
+  rpc Find(FindUserRequest) returns (UserResponse) {}
+}

@@ -1,18 +1,17 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
+const { create, find } = require('./controller/user');
 
-const packageDefinition = protoLoader.loadSync('./proto/service.proto');
-const { mypackage } = grpc.loadPackageDefinition(packageDefinition);
-
-function sendMessage(call, callback) {
-  const message = call.request;
-  const response = { content: ` ${message.content}` };
-  callback(null, response);
-}
+const packageDefinition = protoLoader.loadSync('./proto/user.proto');
+const { userpackage } = grpc.loadPackageDefinition(packageDefinition);
 
 function main() {
   const server = new grpc.Server();
-  server.addService(mypackage.MyService.service, { SendMessage: sendMessage });
+  server.addService(userpackage.UserService.service, {
+    Create: create,
+    Find: find
+  });
+  
   server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), (error, port) => {
     if (error) {
       console.error('Erro ao vincular o servidor:', error);
