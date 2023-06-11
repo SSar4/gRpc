@@ -47,3 +47,5 @@ No arquivo src/client.js, atualize a lógica do cliente para enviar as solicita�
 
 
 No projeto gRPC em Node.js, não é necessário compilar explicitamente o arquivo .proto para gerar os arquivos de código. O pacote @grpc/proto-loader usado no exemplo anterior já faz o carregamento dinâmico do arquivo .proto e gera as definições de serviço e mensagem em tempo de execução.
+
+Deixei um arquivo do insomnia caso quera usa-lo como client
