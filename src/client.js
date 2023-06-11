@@ -1,21 +1,39 @@
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 
-const packageDefinition = protoLoader.loadSync('./proto/service.proto');
-const { mypackage } = grpc.loadPackageDefinition(packageDefinition);
+const packageDefinition = protoLoader.loadSync('./proto/user.proto');
+const { userpackage } = grpc.loadPackageDefinition(packageDefinition);
 
-const client = new mypackage.MyService('localhost:50051', grpc.credentials.createInsecure());
+const client = new userpackage.UserService('localhost:50051', grpc.credentials.createInsecure());
 
-function sendMessage(message) {
-  const request = { content: message };
-  client.SendMessage(request, (error, response) => {
+function create(message) {
+  const request = { 
+    name: message.name,
+    email: message.email,
+    password: message.password
+};
+  client.Create(request, (error, response) => {
     if (error) {
       console.error('Erro ao enviar mensagem:', error);
       return;
     }
-    console.log('Resposta:', response.content);
+    console.log('Resposta do create:', response);
+  });
+}
+
+function find(message) {
+  const request = { 
+    id: message
+};
+  client.Find(request, (error, response) => {
+    if (error) {
+      console.error('Erro ao enviar mensagem:', error);
+      return;
+    }
+    console.log('Resposta do find:', response);
   });
 }
 
 // Exemplo de chamada de função
-sendMessage('Olá, mundo!');
+create({name: 'sara', email: 'aras.strong8@gmail.com', password: '12345'});
+find(1);
